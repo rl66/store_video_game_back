@@ -26,7 +26,7 @@ public class ConsoleType {
     @OneToMany(mappedBy = "consoleType")
     private List<VideoGame> videoGames;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "consoleType")
     private List<PricePerConsole> pricePerConsoles;
 
@@ -61,4 +61,5 @@ public class ConsoleType {
     public void setPricePerConsoles(List<PricePerConsole> pricePerConsoles) {
         this.pricePerConsoles = pricePerConsoles;
     }
+
 }

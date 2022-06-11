@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -19,10 +20,10 @@ public class Rental {
     private UUID rentalId;
 
     @Column(name = "rental_date_start")
-    private String rentalDateStart;
+    private LocalDate rentalDateStart;
 
     @Column(name = "rental_date_end")
-    private String rentalDateEnd;
+    private LocalDate rentalDateEnd;
 
     @Column(name = "rental_discount")
     private Float rentalDiscount;
@@ -38,7 +39,7 @@ public class Rental {
     @JoinColumn(name = "invoice_id", insertable = false, updatable = false)
     private Invoice invoice;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "game_reference_id", insertable = false, updatable = false)
     private GameReference gameReference;
@@ -51,19 +52,19 @@ public class Rental {
         this.rentalId = rentalId;
     }
 
-    public String getRentalDateStart() {
+    public LocalDate getRentalDateStart() {
         return rentalDateStart;
     }
 
-    public void setRentalDateStart(String rentalDateStart) {
+    public void setRentalDateStart(LocalDate rentalDateStart) {
         this.rentalDateStart = rentalDateStart;
     }
 
-    public String getRentalDateEnd() {
+    public LocalDate getRentalDateEnd() {
         return rentalDateEnd;
     }
 
-    public void setRentalDateEnd(String rentalDateEnd) {
+    public void setRentalDateEnd(LocalDate rentalDateEnd) {
         this.rentalDateEnd = rentalDateEnd;
     }
 

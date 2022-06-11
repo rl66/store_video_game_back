@@ -1,7 +1,6 @@
 package com.crediservir.store.priceperconsole.controller;
 
-import com.crediservir.store.person.dto.PersonDto;
-import com.crediservir.store.person.entity.Person;
+
 import com.crediservir.store.priceperconsole.dto.PricePerConsoleDto;
 import com.crediservir.store.priceperconsole.entity.PricePerConsole;
 import com.crediservir.store.priceperconsole.service.PricePerConsoleService;
@@ -62,19 +61,19 @@ public class PricePerConsoleController {
         return new ResponseEntity<>(modelMapper.map(pricePerConsole, PricePerConsoleDto.class), HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{pricePerConsoleId}")
-    @ApiOperation("Update price")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Return the updated price"),
-            @ApiResponse(code = 404, message = "Returns the data sent is invalid")
-    })
-    public ResponseEntity<Map<String, Object>> updatePrice(@RequestBody PricePerConsoleDto pricePerConsoleDto, @PathVariable("pricePerConsoleId") UUID pricePerConsoleId){
-        Map<String, Object> map = new HashMap<>();
-        map.put("message","Datos invalidos");
-        if(pricePerConsoleService.findById(pricePerConsoleId).isPresent()){
-            map.put("message", modelMapper.map(pricePerConsoleService.updatePrice(pricePerConsoleId, modelMapper.map(pricePerConsoleDto, PricePerConsole.class)), Person.class));
-            return new ResponseEntity<>(map, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
-    }
+//    @PutMapping("/update/{pricePerConsoleId}")
+//    @ApiOperation("Update price")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "Return the updated price"),
+//            @ApiResponse(code = 404, message = "Returns the data sent is invalid")
+//    })
+//    public ResponseEntity<Map<String, Object>> updatePrice(@RequestBody PricePerConsoleDto pricePerConsoleDto, @PathVariable("pricePerConsoleId") UUID pricePerConsoleId){
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("message","Datos invalidos");
+//        if(pricePerConsoleService.findById(pricePerConsoleId).isPresent()){
+//            map.put("message", modelMapper.map(pricePerConsoleService.updatePrice(pricePerConsoleId, modelMapper.map(pricePerConsoleDto, PricePerConsole.class)), PricePerConsole.class));
+//            return new ResponseEntity<>(map, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+//    }
 }

@@ -1,7 +1,9 @@
 package com.crediservir.store.gamereference.repository;
 
 import com.crediservir.store.gamereference.entity.GameReference;
+import com.crediservir.store.videogame.entity.VideoGame;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,5 +14,6 @@ public interface GameReferenceRepository extends JpaRepository<GameReference, UU
 
     List<GameReference> getByVideoGameId(UUID videoGameId);
      void deleteByVideoGameId(UUID videoGameId);
+
 
 }

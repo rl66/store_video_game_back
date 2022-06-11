@@ -24,22 +24,22 @@ public class VideoGameService {
         this.gameReferenceService = gameReferenceService;
     }
 
-    public List<VideoGame> getAll(){
+    public List<VideoGame> getAll() {
         return videoGameRepository.findAll();
     }
 
-    public Optional<VideoGame> findById(UUID videoGameId){
+    public Optional<VideoGame> findById(UUID videoGameId) {
         return videoGameRepository.findById(videoGameId);
     }
 
-    public Boolean existVideoGameByName(String videoGameName){
+    public Boolean existVideoGameByName(String videoGameName) {
         return videoGameRepository.existsByVideoGameName(videoGameName);
     }
 
-    public void saveVideoGame(VideoGame videoGame){
+    public void saveVideoGame(VideoGame videoGame) {
         videoGameRepository.save(videoGame);
         GameReference gameReference = new GameReference();
-        for (int i = 0; i<=videoGame.getVideoGameStock();i++) {
+        for (int i = 0; i <= videoGame.getVideoGameStock(); i++) {
             gameReference.setVideoGameId(videoGame.getVideoGameId());
             gameReference.setGameReferenceId(UUID.randomUUID());
             gameReferenceService.saveReference(gameReference);
@@ -47,19 +47,18 @@ public class VideoGameService {
     }
 
 
-    public VideoGame updateVideoGameByUuid(UUID videoGameId, VideoGame videoGame){
+    public VideoGame updateVideoGameByUuid(UUID videoGameId, VideoGame videoGame) {
         return videoGameRepository.findById(videoGameId).map(videoGame1 -> {
-            videoGame1.setVideoGameName((videoGame.getVideoGameName() !=null )? videoGame.getVideoGameName(): videoGame1.getVideoGameName());
-            videoGame1.setVideoGameGender((videoGame.getVideoGameGender() !=null )? videoGame.getVideoGameGender(): videoGame1.getVideoGameGender());
-            videoGame1.setVideoGameYear((videoGame.getVideoGameYear() !=null )? videoGame.getVideoGameYear(): videoGame1.getVideoGameYear());
+            videoGame1.setVideoGameName((videoGame.getVideoGameName() != null) ? videoGame.getVideoGameName() : videoGame1.getVideoGameName());
+            videoGame1.setVideoGameGender((videoGame.getVideoGameGender() != null) ? videoGame.getVideoGameGender() : videoGame1.getVideoGameGender());
+            videoGame1.setVideoGameYear((videoGame.getVideoGameYear() != null) ? videoGame.getVideoGameYear() : videoGame1.getVideoGameYear());
             return videoGameRepository.save(videoGame1);
         }).orElse(null);
     }
 
-    public void deleteVideoGameById(UUID videoGameId){
+    public void deleteVideoGameById(UUID videoGameId) {
         videoGameRepository.deleteById(videoGameId);
     }
-
 
 
 }

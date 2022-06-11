@@ -1,5 +1,6 @@
 package com.crediservir.store.videogame.dto;
 
+import com.crediservir.store.consoletype.entity.ConsoleType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -32,6 +33,9 @@ public class VideoGameDto {
     private Long videoGameStock;
 
     private UUID consoleTypeId;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private ConsoleType consoleType;
 
     public UUID getVideoGameId() {
         return videoGameId;
@@ -79,5 +83,13 @@ public class VideoGameDto {
 
     public void setVideoGameStock(Long videoGameStock) {
         this.videoGameStock = videoGameStock;
+    }
+
+    public ConsoleType getConsoleType() {
+        return consoleType;
+    }
+
+    public void setConsoleType(ConsoleType consoleType) {
+        this.consoleType = consoleType;
     }
 }

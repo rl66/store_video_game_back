@@ -1,0 +1,11 @@
+logging:
+    level:
+        com:
+            crediservir:
+                store_back: info
+spring:
+    profiles:
+        active: dev
+
+    jpa:
+        open-in-view: false

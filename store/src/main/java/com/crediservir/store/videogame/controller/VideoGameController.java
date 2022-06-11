@@ -1,7 +1,7 @@
 package com.crediservir.store.videogame.controller;
 
-import com.crediservir.store.person.dto.PersonDto;
-import com.crediservir.store.person.entity.Person;
+import com.crediservir.store.priceperconsole.dto.PricePerConsoleDto;
+import com.crediservir.store.priceperconsole.service.PricePerConsoleService;
 import com.crediservir.store.videogame.dto.VideoGameDto;
 import com.crediservir.store.videogame.entity.VideoGame;
 import com.crediservir.store.videogame.service.VideoGameService;
@@ -23,10 +23,13 @@ public class VideoGameController {
 
     private final VideoGameService videoGameService;
 
+    private final PricePerConsoleService pricePerConsoleService;
+
     private final ModelMapper modelMapper;
 
-    public VideoGameController(VideoGameService videoGameService, ModelMapper modelMapper) {
+    public VideoGameController(VideoGameService videoGameService, PricePerConsoleService pricePerConsoleService, ModelMapper modelMapper) {
         this.videoGameService = videoGameService;
+        this.pricePerConsoleService = pricePerConsoleService;
         this.modelMapper = modelMapper;
     }
 
@@ -82,5 +85,13 @@ public class VideoGameController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
         return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/price/{consoleTypeId}")
+    @ApiOperation("Get last price by console Type Id")
+    @ApiResponses({@ApiResponse(code = 200, message = "success")})
+    public ResponseEntity<PricePerConsoleDto> findLastPriceByConsoleTypeId(@PathVariable UUID consoleTypeId){
+        return pricePerConsoleService.findLastPriceByConsoleType(consoleTypeId).map(console -> new ResponseEntity<>(modelMapper.map(console, PricePerConsoleDto.class), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -13,20 +15,13 @@ public class RentalDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private UUID rentalId;
 
-    @NotNull
-    @NotEmpty
-    @Size(max = 20)
-    private String rentalDateStart;
+    private LocalDate rentalDateStart;
 
-    @NotNull
-    @NotEmpty
-    @Size(max = 20)
-    private String rentalDateEnd;
+    private LocalDate rentalDateEnd;
 
-    @NotNull
-    @NotEmpty
-    @Size(max = 100)
     private Float rentalDiscount;
+
+    private UUID gameReferenceId;
 
     private UUID invoiceId;
 
@@ -38,19 +33,19 @@ public class RentalDto {
         this.rentalId = rentalId;
     }
 
-    public String getRentalDateStart() {
+    public LocalDate getRentalDateStart() {
         return rentalDateStart;
     }
 
-    public void setRentalDateStart(String rentalDateStart) {
+    public void setRentalDateStart(LocalDate rentalDateStart) {
         this.rentalDateStart = rentalDateStart;
     }
 
-    public String getRentalDateEnd() {
+    public LocalDate getRentalDateEnd() {
         return rentalDateEnd;
     }
 
-    public void setRentalDateEnd(String rentalDateEnd) {
+    public void setRentalDateEnd(LocalDate rentalDateEnd) {
         this.rentalDateEnd = rentalDateEnd;
     }
 
@@ -68,5 +63,13 @@ public class RentalDto {
 
     public void setInvoiceId(UUID invoiceId) {
         this.invoiceId = invoiceId;
+    }
+
+    public UUID getGameReferenceId() {
+        return gameReferenceId;
+    }
+
+    public void setGameReferenceId(UUID gameReferenceId) {
+        this.gameReferenceId = gameReferenceId;
     }
 }
