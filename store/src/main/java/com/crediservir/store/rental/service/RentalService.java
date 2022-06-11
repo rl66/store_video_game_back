@@ -62,7 +62,7 @@ public class RentalService {
         if (dias <= 5 && dias >= 3) {
             rental.setRentalDiscount(pricePerConsoles.getPricePerConsoleCash() - ((dias * 10) / 100));
         }
-        if (dias <= 6 && dias >= 10) {
+        if (dias <= 10 && dias >= 6) {
             rental.setRentalDiscount(pricePerConsoles.getPricePerConsoleCash() - ((dias * 15) / 100));
         }
         if (dias >= 10) {
