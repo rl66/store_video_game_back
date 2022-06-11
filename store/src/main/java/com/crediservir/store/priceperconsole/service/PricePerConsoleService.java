@@ -44,4 +44,8 @@ public class PricePerConsoleService {
         return pricePerConsoleRepository.findVideoGameByConsoleTypeId(consoleTypeId);
     }
 
+    public PricePerConsole getPriceByGameReferenceId(UUID gameReferenceId){
+        return pricePerConsoleRepository.getByGameReferenceId(gameReferenceId);
+    }
+
 }

@@ -57,19 +57,19 @@ public class RentalDto {
         this.rentalDiscount = rentalDiscount;
     }
 
-    public UUID getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(UUID invoiceId) {
-        this.invoiceId = invoiceId;
-    }
-
     public UUID getGameReferenceId() {
         return gameReferenceId;
     }
 
     public void setGameReferenceId(UUID gameReferenceId) {
         this.gameReferenceId = gameReferenceId;
+    }
+
+    public UUID getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(UUID invoiceId) {
+        this.invoiceId = invoiceId;
     }
 }

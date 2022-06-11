@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,13 +15,11 @@ import java.util.UUID;
 public class Invoice {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "invoice_id")
     private UUID invoiceId;
 
     @Column(name = "invoice_date")
-    private String invoiceDate;
+    private LocalDate invoiceDate;
 
     @Column(name = "invoice_total")
     private Float invoiceTotal;
@@ -45,11 +44,11 @@ public class Invoice {
         this.invoiceId = invoiceId;
     }
 
-    public String getInvoiceDate() {
+    public LocalDate getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(String invoiceDate) {
+    public void setInvoiceDate(LocalDate invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 

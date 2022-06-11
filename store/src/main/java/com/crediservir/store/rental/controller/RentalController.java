@@ -4,8 +4,6 @@ package com.crediservir.store.rental.controller;
 import com.crediservir.store.rental.dto.RentalDto;
 import com.crediservir.store.rental.entity.Rental;
 import com.crediservir.store.rental.service.RentalService;
-import com.crediservir.store.videogame.dto.VideoGameDto;
-import com.crediservir.store.videogame.entity.VideoGame;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -67,13 +65,13 @@ public class RentalController {
     public ResponseEntity<?> create(@Valid @RequestBody RentalDto rentalDto){
         HashMap<String, String> map = new HashMap<>();
         if (rentalDto.getRentalDateStart().isBefore(LocalDate.now())){
-            map.put("message", "La fecha para alguilar un video juego debe ser de la fecha actual en adelante");
+            map.put("message", "La fecha para alquilar un video juego debe ser de la fecha actual en adelante");
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
-//        if (!rentalService.ExistByRentalDate(rentalDto.getRentalDateStart(), rentalDto.getRentalDateEnd())){
-//            map.put("message", "Este video juego ya esta rentado");
-//            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
-//        }
+        if (rentalService.ExistByRentalDate(rentalDto.getRentalDateStart(), rentalDto.getRentalDateEnd())){
+            map.put("message", "Este video juego ya esta rentado");
+            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        }
         Object videoGame = rentalDto.getGameReferenceId();
         if (Objects.isNull(videoGame)){
             map.put("message", "Debe asginar un video juego");
@@ -81,7 +79,6 @@ public class RentalController {
         }
         HashMap<String, String> responseMap = new HashMap<>();
         responseMap.put("message", "alquiler guardado");
-//        VideoGame videoGame = videoGameService.sa(modelMapper.map(videoGameDto, VideoGame.class));
         rentalService.saveRental(modelMapper.map(rentalDto, Rental.class));
         return new ResponseEntity<>(responseMap, HttpStatus.CREATED);
     }

@@ -3,9 +3,8 @@ package com.crediservir.store.invoice.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -14,17 +13,10 @@ public class InvoiceDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID invoiceId;
 
-    @NotNull
-    @NotEmpty
-    @Size(max = 100)
-    private String invoiceDate;
+    private LocalDate invoiceDate;
 
-    @NotNull
-    @NotEmpty
-    @Size(max = 100)
     private Float invoiceTotal;
 
-    @NotNull
     private UUID personId;
 
     public UUID getInvoiceId() {
@@ -35,11 +27,11 @@ public class InvoiceDto {
         this.invoiceId = invoiceId;
     }
 
-    public String getInvoiceDate() {
+    public LocalDate getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(String invoiceDate) {
+    public void setInvoiceDate(LocalDate invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 

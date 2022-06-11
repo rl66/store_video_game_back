@@ -1,5 +1,6 @@
 package com.crediservir.store.rental.repository;
 
+import com.crediservir.store.gamereference.entity.GameReference;
 import com.crediservir.store.rental.entity.Rental;
 import com.crediservir.store.videogame.entity.VideoGame;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,7 +22,7 @@ public interface RentalRepository  extends JpaRepository<Rental, UUID> {
 
     Boolean existsByRentalDateStartIsAfterAndRentalDateEndIsBefore(LocalDate rentalDateStart, LocalDate rentalDateEnd);
 
-    @Query(value = "SELECT video_game_id FROM game_reference INNER JOIN rental ON rental.game_reference_id = :gameReferenceId", nativeQuery = true)
-    List<UUID> findByGameReferenceId(UUID gameReferenceId);
+
+
 
 }
