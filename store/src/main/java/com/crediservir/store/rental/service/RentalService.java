@@ -56,11 +56,7 @@ public class RentalService {
             }
         }
 
-        Invoice invoice = new Invoice();
-        invoice.setInvoiceId(UUID.randomUUID());
-        invoice.setInvoiceDate(LocalDate.now());
-        invoiceService.saveInvoice(invoice);
-        rental.setInvoiceId(invoice.getInvoiceId());
+
         rentalRepository.save(rental);
         PricePerConsole pricePerConsoles = pricePerConsoleService.getPriceByGameReferenceId(rental.getGameReferenceId());
         if (dias <= 5 && dias >= 3) {
@@ -72,6 +68,12 @@ public class RentalService {
         if (dias >= 10) {
             rental.setRentalDiscount(pricePerConsoles.getPricePerConsoleCash() - ((dias * 20) / 100));
         }
+        Invoice invoice = new Invoice();
+        invoice.setInvoiceId(UUID.randomUUID());
+        invoice.setInvoiceDate(LocalDate.now());
+        invoice.setInvoiceTotal(rental.getRentalDiscount());
+        invoiceService.saveInvoice(invoice);
+        rental.setInvoiceId(invoice.getInvoiceId());
         rentalRepository.save(rental);
     }
 
