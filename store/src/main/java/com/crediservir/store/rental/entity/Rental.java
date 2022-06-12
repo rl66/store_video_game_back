@@ -28,6 +28,9 @@ public class Rental {
     @Column(name = "rental_discount")
     private Float rentalDiscount;
 
+    @Column(name = "rental_price")
+    private Float rentalPrice;
+
     @Column(name = "invoice_id")
     private UUID invoiceId;
 
@@ -106,5 +109,13 @@ public class Rental {
 
     public void setGameReference(GameReference gameReference) {
         this.gameReference = gameReference;
+    }
+
+    public Float getRentalPrice() {
+        return rentalPrice;
+    }
+
+    public void setRentalPrice(Float rentalPrice) {
+        this.rentalPrice = rentalPrice;
     }
 }

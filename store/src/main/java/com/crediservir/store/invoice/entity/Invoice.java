@@ -15,6 +15,8 @@ import java.util.UUID;
 public class Invoice {
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "invoice_id")
     private UUID invoiceId;
 

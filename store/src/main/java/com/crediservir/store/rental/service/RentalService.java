@@ -59,8 +59,6 @@ public class RentalService {
                 fines++;
             }
         }
-
-        Invoice invoice = new Invoice();
         rentalRepository.save(rental);
         PricePerConsole pricePerConsoles = pricePerConsoleService.getPriceByGameReferenceId(rental.getGameReferenceId());
         float totalfines = fines*pricePerConsoles.getPricePerConsoleCash();
@@ -68,18 +66,21 @@ public class RentalService {
             float discountDays =((dias * pricePerConsoles.getPricePerConsoleCash()  * 10) / 100);
             float price = dias * pricePerConsoles.getPricePerConsoleCash() - discountDays;
             invoiceTotal = totalfines+price;
+            rental.setRentalPrice(invoiceTotal);
             rental.setRentalDiscount(discountDays);
         }
         if (dias <= 10 && dias >= 6) {
             float discountDays =((dias * pricePerConsoles.getPricePerConsoleCash()  * 15) / 100);
             float price = dias * pricePerConsoles.getPricePerConsoleCash() - discountDays;
             invoiceTotal = totalfines+price;
+            rental.setRentalPrice(invoiceTotal);
             rental.setRentalDiscount(discountDays);
         }
         if (dias >= 10) {
             float discountDays =((dias * pricePerConsoles.getPricePerConsoleCash()  * 20) / 100);
             float price = dias * pricePerConsoles.getPricePerConsoleCash() - discountDays;
             invoiceTotal = totalfines+price;
+            rental.setRentalPrice(invoiceTotal);
             rental.setRentalDiscount(discountDays);
         }
         rentalRepository.save(rental);

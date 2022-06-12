@@ -3,6 +3,7 @@ package com.crediservir.store.invoice.controller;
 import com.crediservir.store.invoice.dto.InvoiceDto;
 import com.crediservir.store.invoice.entity.Invoice;
 import com.crediservir.store.invoice.service.InvoiceService;
+import com.crediservir.store.person.dto.PersonDto;
 import com.crediservir.store.person.entity.Person;
 import com.crediservir.store.rental.dto.RentalDto;
 import com.crediservir.store.rental.entity.Rental;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -80,6 +82,14 @@ public class InvoiceController {
                 invoiceService.saveInvoice(invoice.get());
             }
             return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @PostMapping("/save/")
+    @ApiOperation("Create invoice")
+    @ApiResponses({@ApiResponse(code = 201, message = "invoice created"), @ApiResponse(code = 200, message = "invoice bad request")})
+    public ResponseEntity<?> create(@Valid @RequestBody InvoiceDto invoiceDto){
+        Invoice invoice = invoiceService.saveInvoice(modelMapper.map(invoiceDto, Invoice.class));
+        return new ResponseEntity<>(modelMapper.map(invoice, InvoiceDto.class), HttpStatus.CREATED);
     }
 
 
