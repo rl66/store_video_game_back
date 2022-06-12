@@ -2,6 +2,8 @@ package com.crediservir.store.invoice.service;
 
 import com.crediservir.store.invoice.entity.Invoice;
 import com.crediservir.store.invoice.repository.InvoiceRepository;
+import com.crediservir.store.person.entity.Person;
+import com.crediservir.store.person.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +13,16 @@ import java.util.UUID;
 @Service
 public class InvoiceService {
 
-    public InvoiceService(InvoiceRepository invoiceRepository) {
-        this.invoiceRepository = invoiceRepository;
-    }
+
 
     private final InvoiceRepository invoiceRepository;
+
+    private final PersonRepository personRepository;
+
+    public InvoiceService(InvoiceRepository invoiceRepository, PersonRepository personRepository) {
+        this.invoiceRepository = invoiceRepository;
+        this.personRepository = personRepository;
+    }
 
     private List<Invoice> getAll(){
         return invoiceRepository.findAll();
@@ -31,6 +38,13 @@ public class InvoiceService {
 
     public Invoice saveInvoice(Invoice invoice){
        return invoiceRepository.save(invoice);
+    }
+
+    public Invoice updateInvoice(UUID invoiceId, Invoice invoice){
+        return invoiceRepository.findById(invoiceId).map(invoice1 -> {
+            invoice1.setPersonId((invoice.getPersonId()!=null)?invoice.getPersonId():invoice1.getPersonId());
+            return invoiceRepository.save(invoice1);
+        }).orElse(null);
     }
 
 }
