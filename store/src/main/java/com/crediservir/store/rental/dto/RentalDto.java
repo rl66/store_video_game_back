@@ -1,5 +1,6 @@
 package com.crediservir.store.rental.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.validation.constraints.NotEmpty;
@@ -23,6 +24,7 @@ public class RentalDto {
 
     private UUID gameReferenceId;
 
+    @JsonIgnore
     private UUID invoiceId;
 
     public UUID getRentalId() {
