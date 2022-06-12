@@ -82,22 +82,6 @@ public class RentalService {
             invoiceTotal = totalfines+price;
             rental.setRentalDiscount(discountDays);
         }
-
-        invoice.setInvoiceId(UUID.randomUUID());
-        invoice.setInvoiceDate(LocalDate.now());
-        invoiceService.saveInvoice(invoice);
-        float finalInvoiceTotal = invoiceTotal;
-        invoiceService.findById(invoice.getInvoiceId()).ifPresent(
-                invoice1 -> {
-                    if (invoice1.getInvoiceTotal()!=null) {
-                        invoice1.setInvoiceTotal((finalInvoiceTotal + invoice1.getInvoiceTotal()));
-                    }else{
-                        invoice.setInvoiceTotal(finalInvoiceTotal);
-                    }
-
-                });
-        invoiceService.saveInvoice(invoice);
-        rental.setInvoiceId(invoice.getInvoiceId());
         rentalRepository.save(rental);
     }
 

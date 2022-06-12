@@ -4,6 +4,8 @@ import com.crediservir.store.invoice.dto.InvoiceDto;
 import com.crediservir.store.invoice.entity.Invoice;
 import com.crediservir.store.invoice.service.InvoiceService;
 import com.crediservir.store.person.entity.Person;
+import com.crediservir.store.rental.dto.RentalDto;
+import com.crediservir.store.rental.entity.Rental;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -12,9 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/invoice")
@@ -61,6 +62,24 @@ public class InvoiceController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
         return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+    }
+
+
+    @PutMapping("/saverental/{invoiceId}")
+    @ApiOperation("Update person")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Return the updated person"),
+            @ApiResponse(code = 404, message = "Returns the data sent is invalid")
+    })
+    public ResponseEntity<Map<String, Object>> updateInvoiceRental(@RequestBody List<RentalDto> rentals, @PathVariable("invoiceId") UUID invoiceId){
+        Map<String, Object> map = new HashMap<>();
+        map.put("message","Datos invalidos");
+        Optional<Invoice> invoice = invoiceService.findById(invoiceId);
+            if(invoice.isPresent()){
+                invoice.get().setRentals(rentals.stream().map(rentalDto -> modelMapper.map(rentalDto, Rental.class)).collect(Collectors.toList()));
+                invoiceService.saveInvoice(invoice.get());
+            }
+            return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 

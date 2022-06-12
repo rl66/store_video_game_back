@@ -20,11 +20,11 @@ public class RentalDto {
 
     private LocalDate rentalDateEnd;
 
+    @JsonIgnore
     private Float rentalDiscount;
 
     private UUID gameReferenceId;
 
-    @JsonIgnore
     private UUID invoiceId;
 
     public UUID getRentalId() {

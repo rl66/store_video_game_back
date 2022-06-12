@@ -4,6 +4,7 @@ import com.crediservir.store.invoice.entity.Invoice;
 import com.crediservir.store.invoice.repository.InvoiceRepository;
 import com.crediservir.store.person.entity.Person;
 import com.crediservir.store.person.repository.PersonRepository;
+import com.crediservir.store.rental.entity.Rental;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,5 +47,6 @@ public class InvoiceService {
             return invoiceRepository.save(invoice1);
         }).orElse(null);
     }
+
 
 }
