@@ -1,5 +1,7 @@
 package com.crediservir.store.invoice.controller;
 
+import com.crediservir.store.gamereference.dto.GameReferenceDto;
+import com.crediservir.store.gamereference.entity.GameReference;
 import com.crediservir.store.invoice.dto.InvoiceDto;
 import com.crediservir.store.invoice.entity.Invoice;
 import com.crediservir.store.invoice.service.InvoiceService;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,12 +44,14 @@ public class InvoiceController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/person/{personId}")
+
+    @GetMapping("/invoicesofperson/{personId}")
     @ApiOperation("Get invoice by person id")
     @ApiResponses({@ApiResponse(code = 200, message = "success")})
-    public ResponseEntity<InvoiceDto> findInvoiceByPersonId(@PathVariable UUID personId){
-        return invoiceService.findInvoiceByPersonId(personId).map(invoice -> new ResponseEntity<>(modelMapper.map(invoice, InvoiceDto.class), HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<List<InvoiceDto>> findInvoiceByPersonId(@PathVariable UUID personId) {
+        List<Invoice> invoices = invoiceService.findInvoiceByPersonId(personId);
+        return new ResponseEntity<>(invoices.stream().map(invoice -> modelMapper.map(invoice, InvoiceDto.class))
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @PutMapping("/update/{invoiceId}")

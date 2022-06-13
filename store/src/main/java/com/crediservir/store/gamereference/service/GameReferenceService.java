@@ -33,12 +33,8 @@ public class GameReferenceService {
         return gameReferenceRepository.save(gameReference);
     }
 
-    public void deleteByVideoGameId(UUID videoGameId){
-        gameReferenceRepository.deleteByVideoGameId(videoGameId);
-    }
-
-    public List<GameReference> getReferencesNoRent(LocalDate rentalDateStart) {
-        return gameReferenceRepository.getGameReferenceByRentalDateEnd(rentalDateStart);
+    public List<GameReference> getReferencesNoRent(LocalDate rentalDateStart, UUID videoGameId) {
+        return gameReferenceRepository.getGameReferenceByRentalDateEnd(rentalDateStart, videoGameId);
     }
 
 }

@@ -15,17 +15,13 @@ import java.util.UUID;
 public class InvoiceService {
 
 
-
     private final InvoiceRepository invoiceRepository;
-
-    private final PersonRepository personRepository;
 
     public InvoiceService(InvoiceRepository invoiceRepository, PersonRepository personRepository) {
         this.invoiceRepository = invoiceRepository;
-        this.personRepository = personRepository;
     }
 
-    private List<Invoice> getAll(){
+    public List<Invoice> getAllInvoices(){
         return invoiceRepository.findAll();
     }
 
@@ -33,7 +29,7 @@ public class InvoiceService {
         return invoiceRepository.findById(invoiceId);
     }
 
-    public Optional<Invoice> findInvoiceByPersonId(UUID personId){
+    public List<Invoice> findInvoiceByPersonId(UUID personId){
         return invoiceRepository.findInvoiceByPersonId(personId);
     }
 
