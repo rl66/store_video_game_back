@@ -6,6 +6,7 @@ import com.crediservir.store.videogame.dto.VideoGameDto;
 import com.crediservir.store.videogame.entity.VideoGame;
 import com.crediservir.store.videogame.service.VideoGameService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.modelmapper.ModelMapper;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,6 +48,15 @@ public class VideoGameController {
     @ApiResponses({@ApiResponse(code = 200, message = "success")})
     public ResponseEntity<List<VideoGameDto>> findAll(){
         List<VideoGame> videoGames = videoGameService.getAll();
+        return new ResponseEntity<>(videoGames.stream().map(videoGame -> modelMapper.map(videoGame,VideoGameDto.class))
+                .collect(Collectors.toList()),HttpStatus.OK);
+    }
+    @GetMapping("/videogamewithoutrent/{rentalDateStart}")
+    @ApiParam()
+    @ApiOperation("Get all video games")
+    @ApiResponses({@ApiResponse(code = 200, message = "success")})
+    public ResponseEntity<List<VideoGameDto>> findVideoGameWithoutRent(@PathVariable String rentalDateStart){
+        List<VideoGame> videoGames = videoGameService.getVideoGameWithoutRent(LocalDate.parse(rentalDateStart));
         return new ResponseEntity<>(videoGames.stream().map(videoGame -> modelMapper.map(videoGame,VideoGameDto.class))
                 .collect(Collectors.toList()),HttpStatus.OK);
     }
@@ -87,11 +98,11 @@ public class VideoGameController {
         return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/price/{consoleTypeId}")
-    @ApiOperation("Get last price by console Type Id")
-    @ApiResponses({@ApiResponse(code = 200, message = "success")})
-    public ResponseEntity<PricePerConsoleDto> findLastPriceByConsoleTypeId(@PathVariable UUID consoleTypeId){
-        return pricePerConsoleService.findLastPriceByConsoleType(consoleTypeId).map(console -> new ResponseEntity<>(modelMapper.map(console, PricePerConsoleDto.class), HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+//    @GetMapping("/price/{consoleTypeId}")
+//    @ApiOperation("Get last price by console Type Id")
+//    @ApiResponses({@ApiResponse(code = 200, message = "success")})
+//    public ResponseEntity<PricePerConsoleDto> findLastPriceByConsoleTypeId(@PathVariable UUID consoleTypeId){
+//        return pricePerConsoleService.findLastPriceByConsoleType(consoleTypeId).map(console -> new ResponseEntity<>(modelMapper.map(console, PricePerConsoleDto.class), HttpStatus.OK))
+//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//    }
 }

@@ -6,6 +6,8 @@ import com.crediservir.store.videogame.entity.VideoGame;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,7 +30,7 @@ public class PricePerConsoleService {
     }
 
     public PricePerConsole savePrice(PricePerConsole pricePerConsole){
-        pricePerConsole.setPricePerConsoleDate(LocalDate.now());
+        pricePerConsole.setPricePerConsoleDate(LocalDateTime.now());
         return pricePerConsoleRepository.save(pricePerConsole);
     }
 

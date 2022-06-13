@@ -6,6 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -19,7 +21,7 @@ public class PricePerConsole {
     private UUID pricePerConsoleId;
 
     @Column(name = "price_per_console_date")
-    private LocalDate pricePerConsoleDate;
+    private LocalDateTime pricePerConsoleDate;
 
     @Column(name = "price_per_console_cash")
     private Float pricePerConsoleCash;
@@ -40,11 +42,11 @@ public class PricePerConsole {
         this.pricePerConsoleId = pricePerConsoleId;
     }
 
-    public LocalDate getPricePerConsoleDate() {
+    public LocalDateTime getPricePerConsoleDate() {
         return pricePerConsoleDate;
     }
 
-    public void setPricePerConsoleDate(LocalDate pricePerConsoleDate) {
+    public void setPricePerConsoleDate(LocalDateTime pricePerConsoleDate) {
         this.pricePerConsoleDate = pricePerConsoleDate;
     }
 
@@ -71,4 +73,6 @@ public class PricePerConsole {
     public void setConsoleType(ConsoleType consoleType) {
         this.consoleType = consoleType;
     }
+
+
 }

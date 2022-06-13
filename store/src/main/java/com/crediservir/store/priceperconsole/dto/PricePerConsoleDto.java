@@ -1,6 +1,7 @@
 package com.crediservir.store.priceperconsole.dto;
 
 import com.crediservir.store.consoletype.entity.ConsoleType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,6 +10,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -17,15 +20,13 @@ public class PricePerConsoleDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID pricePerConsoleId;
 
-    @NotNull
-    private LocalDate pricePerConsoleDate;
-
-    @NotNull
+    private LocalDateTime pricePerConsoleDate;
+    
     private Float pricePerConsoleCash;
 
     private UUID consoleTypeId;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonIgnore
     private ConsoleType consoleType;
 
     public UUID getPricePerConsoleId() {
@@ -36,11 +37,11 @@ public class PricePerConsoleDto {
         this.pricePerConsoleId = pricePerConsoleId;
     }
 
-    public LocalDate getPricePerConsoleDate() {
+    public LocalDateTime getPricePerConsoleDate() {
         return pricePerConsoleDate;
     }
 
-    public void setPricePerConsoleDate(LocalDate pricePerConsoleDate) {
+    public void setPricePerConsoleDate(LocalDateTime pricePerConsoleDate) {
         this.pricePerConsoleDate = pricePerConsoleDate;
     }
 

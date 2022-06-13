@@ -1,6 +1,7 @@
 package com.crediservir.store.videogame.dto;
 
 import com.crediservir.store.consoletype.entity.ConsoleType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -15,26 +16,19 @@ public class VideoGameDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID videoGameId;
 
-    @NotNull
-    @NotEmpty
-    @Size(max = 100)
+
     private String videoGameName;
 
-    @NotNull
-    @NotEmpty
-    @Size(max = 100)
+
     private String videoGameYear;
 
-    @NotNull
-    @NotEmpty
-    @Size(max = 100)
     private String videoGameGender;
 
     private Long videoGameStock;
 
     private UUID consoleTypeId;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonIgnore
     private ConsoleType consoleType;
 
     public UUID getVideoGameId() {

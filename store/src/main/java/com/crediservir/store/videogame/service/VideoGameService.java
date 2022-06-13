@@ -7,6 +7,7 @@ import com.crediservir.store.videogame.repository.VideoGameRepository;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -39,11 +40,15 @@ public class VideoGameService {
     public void saveVideoGame(VideoGame videoGame) {
         videoGameRepository.save(videoGame);
         GameReference gameReference = new GameReference();
-        for (int i = 0; i <= videoGame.getVideoGameStock(); i++) {
+        for (int i = 1; i <= videoGame.getVideoGameStock(); i++) {
             gameReference.setVideoGameId(videoGame.getVideoGameId());
             gameReference.setGameReferenceId(UUID.randomUUID());
             gameReferenceService.saveReference(gameReference);
         }
+    }
+
+    public List<VideoGame> getVideoGameWithoutRent(LocalDate rentalDateStart){
+        return videoGameRepository.existsVideoGame(rentalDateStart);
     }
 
 

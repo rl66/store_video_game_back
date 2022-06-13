@@ -76,4 +76,12 @@ public class PricePerConsoleController {
 //        }
 //        return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
 //    }
+
+    @GetMapping("/price/{consoleTypeId}")
+    @ApiOperation("Get pricePerConseleId by UUID")
+    @ApiResponses({@ApiResponse(code = 200, message = "success")})
+    public ResponseEntity<PricePerConsoleDto> findPriceByConsoleType(@PathVariable UUID consoleTypeId){
+        return pricePerConsoleService.findLastPriceByConsoleType(consoleTypeId).map(pricePerConsole-> new ResponseEntity<>(modelMapper.map(pricePerConsole, PricePerConsoleDto.class), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

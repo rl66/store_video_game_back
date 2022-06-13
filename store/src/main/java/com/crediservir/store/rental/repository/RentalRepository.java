@@ -24,5 +24,4 @@ public interface RentalRepository  extends JpaRepository<Rental, UUID> {
 
 
 
-
 }
