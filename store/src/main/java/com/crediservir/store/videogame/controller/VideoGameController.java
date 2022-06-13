@@ -1,7 +1,8 @@
 package com.crediservir.store.videogame.controller;
 
-import com.crediservir.store.priceperconsole.dto.PricePerConsoleDto;
-import com.crediservir.store.priceperconsole.service.PricePerConsoleService;
+import com.crediservir.store.gamereference.dto.GameReferenceDto;
+import com.crediservir.store.gamereference.entity.GameReference;
+import com.crediservir.store.gamereference.service.GameReferenceService;
 import com.crediservir.store.videogame.dto.VideoGameDto;
 import com.crediservir.store.videogame.entity.VideoGame;
 import com.crediservir.store.videogame.service.VideoGameService;
@@ -25,13 +26,12 @@ public class VideoGameController {
 
     private final VideoGameService videoGameService;
 
-    private final PricePerConsoleService pricePerConsoleService;
-
+    private final GameReferenceService gameReferenceService;
     private final ModelMapper modelMapper;
 
-    public VideoGameController(VideoGameService videoGameService, PricePerConsoleService pricePerConsoleService, ModelMapper modelMapper) {
+    public VideoGameController(VideoGameService videoGameService, GameReferenceService gameReferenceService, ModelMapper modelMapper) {
         this.videoGameService = videoGameService;
-        this.pricePerConsoleService = pricePerConsoleService;
+        this.gameReferenceService = gameReferenceService;
         this.modelMapper = modelMapper;
     }
 
@@ -55,9 +55,9 @@ public class VideoGameController {
     @ApiParam()
     @ApiOperation("Get all video games")
     @ApiResponses({@ApiResponse(code = 200, message = "success")})
-    public ResponseEntity<List<VideoGameDto>> findVideoGameWithoutRent(@PathVariable String rentalDateStart){
-        List<VideoGame> videoGames = videoGameService.getVideoGameWithoutRent(LocalDate.parse(rentalDateStart));
-        return new ResponseEntity<>(videoGames.stream().map(videoGame -> modelMapper.map(videoGame,VideoGameDto.class))
+    public ResponseEntity<List<GameReferenceDto>> findVideoGameWithoutRent(@PathVariable String rentalDateStart){
+        List<GameReference> gameReferences = gameReferenceService.getReferencesNoRent(LocalDate.parse(rentalDateStart));
+        return new ResponseEntity<>(gameReferences.stream().map(gameReference -> modelMapper.map(gameReference,GameReferenceDto.class))
                 .collect(Collectors.toList()),HttpStatus.OK);
     }
 

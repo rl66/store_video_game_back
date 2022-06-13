@@ -19,9 +19,9 @@ public interface VideoGameRepository extends JpaRepository<VideoGame, UUID> {
 
     VideoGame findByConsoleTypeId(UUID videoGameId);
 
-    @Query(value = "SELECT * FROM video_game game\n" +
-            "INNER JOIN game_reference reference ON reference.video_game_id = game.video_game_id \n" +
-            "AND EXISTS (SELECT rental_date_end FROM rental r WHERE r.rentaL_date_end < :rentalDateStart)", nativeQuery = true)
+    @Query(value = "SELECT * FROM game_reference reference\n" +
+            "INNER JOIN video_game game ON reference.video_game_id = game.video_game_id\n" +
+            "AND EXISTS (SELECT rental_date_end FROM rental r WHERE r.rentaL_date_end < '2022-06-16')", nativeQuery = true)
     List<VideoGame> existsVideoGame(LocalDate rentalDateStart);
 
 }

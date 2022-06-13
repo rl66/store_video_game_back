@@ -3,12 +3,11 @@ package com.crediservir.store.gamereference.service;
 import com.crediservir.store.gamereference.entity.GameReference;
 import com.crediservir.store.gamereference.repository.GameReferenceRepository;
 
-import com.crediservir.store.videogame.entity.VideoGame;
-import com.crediservir.store.videogame.service.VideoGameService;
+
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -36,6 +35,10 @@ public class GameReferenceService {
 
     public void deleteByVideoGameId(UUID videoGameId){
         gameReferenceRepository.deleteByVideoGameId(videoGameId);
+    }
+
+    public List<GameReference> getReferencesNoRent(LocalDate rentalDateStart) {
+        return gameReferenceRepository.getGameReferenceByRentalDateEnd(rentalDateStart);
     }
 
 }

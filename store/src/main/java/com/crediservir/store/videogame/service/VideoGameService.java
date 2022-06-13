@@ -47,10 +47,6 @@ public class VideoGameService {
         }
     }
 
-    public List<VideoGame> getVideoGameWithoutRent(LocalDate rentalDateStart){
-        return videoGameRepository.existsVideoGame(rentalDateStart);
-    }
-
 
     public VideoGame updateVideoGameByUuid(UUID videoGameId, VideoGame videoGame) {
         return videoGameRepository.findById(videoGameId).map(videoGame1 -> {
