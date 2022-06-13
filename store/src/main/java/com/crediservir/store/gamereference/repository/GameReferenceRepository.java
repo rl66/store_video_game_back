@@ -16,9 +16,9 @@ public interface GameReferenceRepository extends JpaRepository<GameReference, UU
     List<GameReference> getByVideoGameId(UUID videoGameId);
      void deleteByVideoGameId(UUID videoGameId);
 
-     @Query(value = "SELECT * FROM game_reference reference \n" +
+     @Query(value = "SELECT * FROM game_reference reference\n" +
              "JOIN video_game game ON game.video_game_id = reference.video_game_id\n" +
              "WHERE reference.game_reference_id NOT IN (SELECT game_reference_id FROM rental WHERE rental_date_end >= :rentalDateEnd)\n" +
-             "AND reference.video_game_id = :videoGameId)\n",nativeQuery = true)
-    List<GameReference> getGameReferenceByRentalDateEnd(LocalDate rentalDateStart, UUID videoGameId);
+             "AND reference.video_game_id = :videoGameId",nativeQuery = true)
+    List<GameReference> getGameReferenceByVideoGameId( UUID videoGameId, LocalDate rentalDateEnd);
 }

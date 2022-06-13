@@ -51,12 +51,12 @@ public class VideoGameController {
         return new ResponseEntity<>(videoGames.stream().map(videoGame -> modelMapper.map(videoGame,VideoGameDto.class))
                 .collect(Collectors.toList()),HttpStatus.OK);
     }
-    @GetMapping("/videogamewithoutrent/{rentalDateStart}/{videoGameId}")
+    @GetMapping("/videogamewithoutrent/{videoGameId}/{rentalDateStart}")
     @ApiParam()
     @ApiOperation("Get all video games")
     @ApiResponses({@ApiResponse(code = 200, message = "success")})
-    public ResponseEntity<List<GameReferenceDto>> findVideoGameWithoutRent(@PathVariable String rentalDateStart, UUID videoGameId){
-        List<GameReference> gameReferences = gameReferenceService.getReferencesNoRent(LocalDate.parse(rentalDateStart), videoGameId);
+    public ResponseEntity<List<GameReferenceDto>> findVideoGameWithoutRent(@PathVariable UUID videoGameId, @PathVariable String rentalDateStart){
+        List<GameReference> gameReferences = gameReferenceService.getReferencesNoRent(videoGameId, LocalDate.parse(rentalDateStart));
         return new ResponseEntity<>(gameReferences.stream().map(gameReference -> modelMapper.map(gameReference,GameReferenceDto.class))
                 .collect(Collectors.toList()),HttpStatus.OK);
     }

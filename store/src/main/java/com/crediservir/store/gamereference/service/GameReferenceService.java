@@ -25,16 +25,16 @@ public class GameReferenceService {
         return gameReferenceRepository.findAll();
     }
 
-    public List<GameReference> getAllReferenceByVideoGameId(UUID videoGameId){
-        return gameReferenceRepository.getByVideoGameId(videoGameId);
-    }
+//    public List<GameReference> getAllReferenceByVideoGameId(UUID videoGameId){
+//        return gameReferenceRepository.getByVideoGameId(videoGameId);
+//    }
 
     public GameReference saveReference(GameReference gameReference){
         return gameReferenceRepository.save(gameReference);
     }
 
-    public List<GameReference> getReferencesNoRent(LocalDate rentalDateStart, UUID videoGameId) {
-        return gameReferenceRepository.getGameReferenceByRentalDateEnd(rentalDateStart, videoGameId);
+    public List<GameReference> getReferencesNoRent(UUID videoGameId, LocalDate rentalDateStart) {
+        return gameReferenceRepository.getGameReferenceByVideoGameId(videoGameId, rentalDateStart);
     }
 
 }
