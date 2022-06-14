@@ -37,7 +37,7 @@ public class RentalController {
     @GetMapping("/{rentalId}")
     @ApiOperation("Get rental by UUID")
     @ApiResponses({@ApiResponse(code = 200, message = "success")})
-    public ResponseEntity<RentalDto> findRentalByUUID(@PathVariable UUID rentalId){
+    public ResponseEntity<RentalDto> findRentalByUUID(@PathVariable UUID rentalId) {
         return rentalService.findById(rentalId).map(rental -> new ResponseEntity<>(modelMapper.map(rental, RentalDto.class), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -45,7 +45,7 @@ public class RentalController {
     @GetMapping("/invoice/{invoiceId}")
     @ApiOperation("Get rental by invoiceId")
     @ApiResponses({@ApiResponse(code = 200, message = "success")})
-    public ResponseEntity<RentalDto> findRentalByInvoiceId(@PathVariable UUID invoiceId){
+    public ResponseEntity<RentalDto> findRentalByInvoiceId(@PathVariable UUID invoiceId) {
         return rentalService.getRentalByInvoiceId(invoiceId).map(rental -> new ResponseEntity<>(modelMapper.map(rental, RentalDto.class), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -53,27 +53,27 @@ public class RentalController {
     @GetMapping("/all")
     @ApiOperation("Get all rental")
     @ApiResponses({@ApiResponse(code = 200, message = "success")})
-    public ResponseEntity<List<RentalDto>> findAll(){
+    public ResponseEntity<List<RentalDto>> findAll() {
         List<Rental> rentals = rentalService.getAll();
-        return new ResponseEntity<>(rentals.stream().map(rental -> modelMapper.map(rental,RentalDto.class))
-                .collect(Collectors.toList()),HttpStatus.OK);
+        return new ResponseEntity<>(rentals.stream().map(rental -> modelMapper.map(rental, RentalDto.class))
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @PostMapping("/save/")
     @ApiOperation("Create rental game")
     @ApiResponses({@ApiResponse(code = 201, message = "rental game created"), @ApiResponse(code = 200, message = "rental game bad request")})
-    public ResponseEntity<?> create(@Valid @RequestBody RentalDto rentalDto){
+    public ResponseEntity<?> create(@Valid @RequestBody RentalDto rentalDto) {
         HashMap<String, String> map = new HashMap<>();
-        if (rentalDto.getRentalDateStart().isBefore(LocalDate.now())){
+        if (rentalDto.getRentalDateStart().isBefore(LocalDate.now())) {
             map.put("message", "La fecha para alquilar un video juego debe ser de la fecha actual en adelante");
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
-        if (rentalService.ExistByRentalDate(rentalDto.getRentalDateStart(), rentalDto.getRentalDateEnd())){
+        if (rentalService.ExistByRentalDate(rentalDto.getRentalDateStart(), rentalDto.getRentalDateEnd())) {
             map.put("message", "Este video juego ya esta rentado");
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
         Object videoGame = rentalDto.getGameReferenceId();
-        if (Objects.isNull(videoGame)){
+        if (Objects.isNull(videoGame)) {
             map.put("message", "Debe asginar un video juego");
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }

@@ -1,6 +1,5 @@
 package com.crediservir.store.rental.service;
 
-import com.crediservir.store.invoice.entity.Invoice;
 import com.crediservir.store.invoice.service.InvoiceService;
 import com.crediservir.store.priceperconsole.entity.PricePerConsole;
 import com.crediservir.store.priceperconsole.service.PricePerConsoleService;
@@ -55,38 +54,38 @@ public class RentalService {
             cal.setTime(newLDate);
             if (cal.get(Calendar.DAY_OF_WEEK) != 7 && cal.get(Calendar.DAY_OF_WEEK) != 1) {
                 dias++;
-            }else if(cal.get(Calendar.DAY_OF_WEEK) == 7  ||  cal.get(Calendar.DAY_OF_WEEK) == 1){
+            } else if (cal.get(Calendar.DAY_OF_WEEK) == 7 || cal.get(Calendar.DAY_OF_WEEK) == 1) {
                 fines++;
             }
         }
         rentalRepository.save(rental);
         PricePerConsole pricePerConsoles = pricePerConsoleService.getPriceByGameReferenceId(rental.getGameReferenceId());
-        float totalfines = fines*pricePerConsoles.getPricePerConsoleCash();
+        float totalfines = fines * pricePerConsoles.getPricePerConsoleCash();
         if (dias < 3) {
             float discountDays = 0;
             float price = dias * pricePerConsoles.getPricePerConsoleCash() - discountDays;
-            invoiceTotal = totalfines+price;
+            invoiceTotal = totalfines + price;
             rental.setRentalPrice(invoiceTotal);
             rental.setRentalDiscount(discountDays);
         }
         if (dias <= 5 && dias >= 3) {
-            float discountDays =((dias * pricePerConsoles.getPricePerConsoleCash()  * 10) / 100);
+            float discountDays = ((dias * pricePerConsoles.getPricePerConsoleCash() * 10) / 100);
             float price = dias * pricePerConsoles.getPricePerConsoleCash() - discountDays;
-            invoiceTotal = totalfines+price;
+            invoiceTotal = totalfines + price;
             rental.setRentalPrice(invoiceTotal);
             rental.setRentalDiscount(discountDays);
         }
         if (dias <= 10 && dias >= 6) {
-            float discountDays =((dias * pricePerConsoles.getPricePerConsoleCash()  * 15) / 100);
+            float discountDays = ((dias * pricePerConsoles.getPricePerConsoleCash() * 15) / 100);
             float price = dias * pricePerConsoles.getPricePerConsoleCash() - discountDays;
-            invoiceTotal = totalfines+price;
+            invoiceTotal = totalfines + price;
             rental.setRentalPrice(invoiceTotal);
             rental.setRentalDiscount(discountDays);
         }
         if (dias >= 10) {
-            float discountDays =((dias * pricePerConsoles.getPricePerConsoleCash()  * 20) / 100);
+            float discountDays = ((dias * pricePerConsoles.getPricePerConsoleCash() * 20) / 100);
             float price = dias * pricePerConsoles.getPricePerConsoleCash() - discountDays;
-            invoiceTotal = totalfines+price;
+            invoiceTotal = totalfines + price;
             rental.setRentalPrice(invoiceTotal);
             rental.setRentalDiscount(discountDays);
         }

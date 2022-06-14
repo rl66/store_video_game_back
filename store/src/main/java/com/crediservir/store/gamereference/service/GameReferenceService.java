@@ -21,15 +21,12 @@ public class GameReferenceService {
         this.gameReferenceRepository = gameReferenceRepository;
     }
 
-    public List<GameReference> getAll(){
+    public List<GameReference> getAll() {
         return gameReferenceRepository.findAll();
     }
 
-//    public List<GameReference> getAllReferenceByVideoGameId(UUID videoGameId){
-//        return gameReferenceRepository.getByVideoGameId(videoGameId);
-//    }
 
-    public GameReference saveReference(GameReference gameReference){
+    public GameReference saveReference(GameReference gameReference) {
         return gameReferenceRepository.save(gameReference);
     }
 

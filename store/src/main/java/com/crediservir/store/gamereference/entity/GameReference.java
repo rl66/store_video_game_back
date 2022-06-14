@@ -3,7 +3,6 @@ package com.crediservir.store.gamereference.entity;
 import com.crediservir.store.rental.entity.Rental;
 import com.crediservir.store.videogame.entity.VideoGame;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;

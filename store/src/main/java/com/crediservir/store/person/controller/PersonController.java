@@ -56,14 +56,14 @@ public class PersonController {
     @PostMapping("/save/")
     @ApiOperation("Create person")
     @ApiResponses({@ApiResponse(code = 201, message = "area created"), @ApiResponse(code = 200, message = "area bad request")})
-    public ResponseEntity<?> create(@Valid @RequestBody PersonDto personDto){
+    public ResponseEntity<?> create(@Valid @RequestBody PersonDto personDto) {
         HashMap<String, String> map = new HashMap<>();
-        if (personService.exitPersonByDocument(personDto.getPersonDocument())){
+        if (personService.exitPersonByDocument(personDto.getPersonDocument())) {
             map.put("message", "Estea persona con este documento ya existe");
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
-            Object document = personDto.getPersonDocumentTypeId();
-        if (Objects.isNull(document)){
+        Object document = personDto.getPersonDocumentTypeId();
+        if (Objects.isNull(document)) {
             map.put("message", "Debe asginar un tipo de documento");
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }

@@ -10,15 +10,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface RentalRepository  extends JpaRepository<Rental, UUID> {
+public interface RentalRepository extends JpaRepository<Rental, UUID> {
 
     Optional<Rental> getRentalByInvoiceId(UUID invoiceId);
 
-    Rental findByRentalId(UUID rentalId);
-
 
     Boolean existsByRentalDateStartIsAfterAndRentalDateEndIsBefore(LocalDate rentalDateStart, LocalDate rentalDateEnd);
-
 
 
 }

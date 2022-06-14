@@ -3,7 +3,6 @@ package com.crediservir.store.invoice.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
 
