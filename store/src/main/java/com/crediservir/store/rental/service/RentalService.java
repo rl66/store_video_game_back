@@ -62,6 +62,13 @@ public class RentalService {
         rentalRepository.save(rental);
         PricePerConsole pricePerConsoles = pricePerConsoleService.getPriceByGameReferenceId(rental.getGameReferenceId());
         float totalfines = fines*pricePerConsoles.getPricePerConsoleCash();
+        if (dias < 3) {
+            float discountDays = 0;
+            float price = dias * pricePerConsoles.getPricePerConsoleCash() - discountDays;
+            invoiceTotal = totalfines+price;
+            rental.setRentalPrice(invoiceTotal);
+            rental.setRentalDiscount(discountDays);
+        }
         if (dias <= 5 && dias >= 3) {
             float discountDays =((dias * pricePerConsoles.getPricePerConsoleCash()  * 10) / 100);
             float price = dias * pricePerConsoles.getPricePerConsoleCash() - discountDays;

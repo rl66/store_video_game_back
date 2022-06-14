@@ -1,7 +1,6 @@
 package com.crediservir.store.gamereference.repository;
 
 import com.crediservir.store.gamereference.entity.GameReference;
-import com.crediservir.store.videogame.entity.VideoGame;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -26,8 +26,12 @@ public class InvoiceService {
     }
 
     public Optional<Invoice> findById(UUID invoiceId){
+         Invoice invoice =  invoiceRepository.findByInvoiceId(invoiceId);
+            invoice.setInvoiceTotal(invoiceRepository.getByInvoiceId(invoiceId));
+            invoiceRepository.save(invoice);
         return invoiceRepository.findById(invoiceId);
     }
+
 
     public List<Invoice> findInvoiceByPersonId(UUID personId){
         return invoiceRepository.findInvoiceByPersonId(personId);

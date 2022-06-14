@@ -44,7 +44,6 @@ public class InvoiceController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-
     @GetMapping("/invoicesofperson/{personId}")
     @ApiOperation("Get invoice by person id")
     @ApiResponses({@ApiResponse(code = 200, message = "success")})
@@ -89,7 +88,7 @@ public class InvoiceController {
             return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @PostMapping("/save/")
+    @PostMapping("/save")
     @ApiOperation("Create invoice")
     @ApiResponses({@ApiResponse(code = 201, message = "invoice created"), @ApiResponse(code = 200, message = "invoice bad request")})
     public ResponseEntity<?> create(@Valid @RequestBody InvoiceDto invoiceDto){

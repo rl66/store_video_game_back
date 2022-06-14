@@ -17,9 +17,6 @@ public class ConsoleTypeDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID consoleTypeId;
 
-    @NotNull
-    @NotEmpty
-    @Size(max = 20)
     private String consoleTypeName;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
